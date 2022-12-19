@@ -9,12 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Use pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 7
       - name: Install dependencies
-        run: pnpm install
+        run: npm install
       - name: Publish to Open VSX Registry
         uses: HaaLeo/publish-vscode-extension@v1
         with:
