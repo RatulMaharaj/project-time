@@ -6,7 +6,7 @@ import {
   startTimeTracking,
   stopTimeTracking,
 } from "./helpers";
-import { exportAllTimes } from "./exports";
+import { exportAllTimes, exportTimesBetween } from "./exports";
 
 let db: any;
 let myStatusBarItem: vscode.StatusBarItem;
@@ -39,7 +39,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   // register a command that is invoked when the status bar
   // item is selected
-  const myCommandId = "project-time.showSelectionCount";
+  const myCommandId = "project-time.todays-time";
   context.subscriptions.push(
     vscode.commands.registerCommand(myCommandId, () => {
       vscode.window.showInformationMessage(
@@ -67,14 +67,23 @@ export async function activate(context: vscode.ExtensionContext) {
   // update status bar item once at start
   updateStatusBarItem(todaysTime);
 
+  // command to export all times
   const exportAll = vscode.commands.registerCommand(
     "project-time.export-json",
     () => {
       exportAllTimes(db);
     }
   );
-
   context.subscriptions.push(exportAll);
+
+  // command to export all times between two dates
+  const exportBetween = vscode.commands.registerCommand(
+    "project-time.export-between-json",
+    () => {
+      exportTimesBetween(db);
+    }
+  );
+  context.subscriptions.push(exportBetween);
 }
 
 // This method is called when your extension is deactivated

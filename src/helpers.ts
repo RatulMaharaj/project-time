@@ -42,6 +42,27 @@ export function fetchAllRowsAfter(db: any, date?: number) {
   }
 }
 
+export function fetchAllRowsBetween(db: any, start: Date, end: Date) {
+  // convert start and end to numbers
+  const startNum = start.getTime();
+  const endNum = end.getTime();
+
+  return new Promise((resolve, reject) => {
+    db.all(
+      "SELECT * FROM Time WHERE start BETWEEN ? AND ? ;",
+      [startNum, endNum],
+      (err: any, rows: Time[]) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      }
+    );
+  }) as Promise<Time[]>;
+}
+
+
 export async function getTodaysTime(db: any) {
   //  startOfToday as a number
   const startOfToday = new Date();

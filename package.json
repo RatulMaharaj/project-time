@@ -29,6 +29,10 @@
       {
         "command": "project-time.export-json",
         "title": "Project Time: Export all"
+      },
+      {
+        "command": "project-time.export-between-json",
+        "title": "Project Time: Export"
       }
     ]
   },
