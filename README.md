@@ -1,71 +1,23 @@
-# projecttime README
+# Project Time
 
-This is the README for your extension "projecttime". After writing up a brief description, we recommend including the following sections.
+This extension intends to give you a way to track the amount of time you spend in your VS Code projects.
+
+It was created for personal use, but is a great tool for freelancers and consultants who bill hourly and want to track their time.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+Once the extension is installed and activated, a sqlite3 database called `project-time.db` will be created in the `vscode.ExtensionContext.globalStorageUri` directory.
 
-For example if there is an image subfolder under your extension project workspace:
+Once the extension is activated, this database is used to automatically track all the time spent in VS Code across your various projects. Time tracking starts when a window is focused and stops when a code window loses focus.
 
-\!\[feature X\]\(images/feature-x.png\)
+The extension provides some basic ways to extract data from this database (in `JSON` format), however you can feel free to connect to this database to extract your data as you need.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+e.g. you can open the command palette and search for `Project Time: Export all` to export times across all projects.
 
-## Requirements
+The data is yours, do with it as you please.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+## Issues
 
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+Feel free to report any issues [here](https://github.com/RatulMaharaj/project-time/issues).
 
 **Enjoy!**
