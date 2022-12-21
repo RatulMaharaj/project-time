@@ -14,11 +14,12 @@ let myStatusBarItem: vscode.StatusBarItem;
 // This method is called when your extension is activated.
 export function activate(context: vscode.ExtensionContext) {
   console.log("Activating Project Time");
+  // Initialize the required folders and sqlite database
+  db = init(context);
+
   // Get the current project name
   const currentProject = getCurrentProject();
 
-  // Initialize the required folders and sqlite database
-  db = init(context);
 
   // only track time if in a project folder
   if (currentProject !== undefined) {

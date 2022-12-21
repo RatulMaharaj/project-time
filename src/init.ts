@@ -5,6 +5,16 @@ import path = require("path");
 const sqlite3 = require("sqlite3").verbose();
 
 export function init(context: vscode.ExtensionContext) {
+  // get the path the vs code extension is running in
+  const extensionPath = context.extensionUri.fsPath;
+
+  // run npm rebuild to install sqlite3
+  console.log("Project Time: Running npm rebuild");
+  const npmRebuild = require("child_process").execSync("npm rebuild", {
+    cwd: extensionPath,
+  });
+
+  // get the path to the global storage folder
   const storagePath = context.globalStorageUri.fsPath;
 
   // Create storage path if it doesn't already exist
