@@ -69,13 +69,13 @@ export async function getTodaysTime(db: any) {
   startOfToday.setHours(0, 0, 0, 0);
   const startOfTodayNumber = startOfToday.getTime();
 
-  let todaysTime = 0;
-
-  todaysTime = await fetchAllRowsAfter(db, startOfTodayNumber)
+  let todaysTime = await fetchAllRowsAfter(db, startOfTodayNumber)
     .then((data) => {
       let total = 0;
       data.forEach((row: Time) => {
-        total += row.end - row.start;
+        if (row.end) {
+          total += row.end - row.start;
+        }
       });
       return total;
     })
@@ -84,7 +84,7 @@ export async function getTodaysTime(db: any) {
       return 0;
     });
 
-  return prettyTime(todaysTime)
+  return prettyTime(todaysTime);
 }
 
 export function prettyTime(ms: number) {

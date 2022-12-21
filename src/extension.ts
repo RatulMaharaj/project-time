@@ -12,14 +12,13 @@ let db: any;
 let myStatusBarItem: vscode.StatusBarItem;
 
 // This method is called when your extension is activated.
-export async function activate(context: vscode.ExtensionContext) {
+export function activate(context: vscode.ExtensionContext) {
   console.log("Activating Project Time");
   // Get the current project name
   const currentProject = getCurrentProject();
 
   // Initialize the required folders and sqlite database
   db = init(context);
-  let todaysTime = await getTodaysTime(db);
 
   // only track time if in a project folder
   if (currentProject !== undefined) {
@@ -43,7 +42,7 @@ export async function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand(myCommandId, () => {
       vscode.window.showInformationMessage(
-        `Project Time - You've spent ${todaysTime} today!`
+        `Project Time is active!`
       );
     })
   );
@@ -59,13 +58,8 @@ export async function activate(context: vscode.ExtensionContext) {
   // register some listener that make sure the status bar
   // item always up-to-date
   context.subscriptions.push(
-    vscode.window.onDidChangeActiveTextEditor(() =>
-      updateStatusBarItem(todaysTime)
-    )
+    vscode.window.onDidChangeWindowState(updateStatusBarItem)
   );
-
-  // update status bar item once at start
-  updateStatusBarItem(todaysTime);
 
   // command to export all times
   const exportAll = vscode.commands.registerCommand(
@@ -84,6 +78,9 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   );
   context.subscriptions.push(exportBetween);
+
+  // update status bar item once at start
+  updateStatusBarItem();
 }
 
 // This method is called when your extension is deactivated
@@ -94,8 +91,12 @@ export function deactivate() {
 }
 
 // update status bar item
-async function updateStatusBarItem(todaysTime: string) {
-  myStatusBarItem.text = `$(clock) ${todaysTime}`;
-  myStatusBarItem.tooltip = `Your time spent in VS Code today is ${todaysTime}`;
-  myStatusBarItem.show();
+function updateStatusBarItem() {
+  console.log("Project Time: Updating status bar!");
+  getTodaysTime(db).then((todaysTime) => {
+    console.log("Todays Time is", todaysTime);
+    myStatusBarItem.text = `$(clock) ${todaysTime}`;
+    myStatusBarItem.tooltip = `Your time spent in VS Code today is ${todaysTime}`;
+    myStatusBarItem.show();
+  });
 }
