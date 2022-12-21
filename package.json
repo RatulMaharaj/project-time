@@ -11,6 +11,11 @@
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "time",
+    "project",
+    "productivity"
+  ],
   "activationEvents": [
     "onStartupFinished"
   ],
