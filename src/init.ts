@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import fs = require("fs");
+import path = require("path");
 
 const sqlite3 = require("sqlite3").verbose();
 
@@ -16,7 +17,8 @@ export function init(context: vscode.ExtensionContext) {
 
   console.log("ProjectTime: Initializing SQLITE database");
   // Create or connect to sqlite database
-  let db = new sqlite3.Database(storagePath + "/project-time.db");
+  const pathToDatabase = path.join(storagePath, "project-time.db");
+  let db = new sqlite3.Database(pathToDatabase);
 
   // Create table if it doesn't already exist
   db.run(
